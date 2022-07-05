@@ -4,6 +4,7 @@ const initialUserState = {
   userName: '',
   isLoggedIn: false,
   admin: false,
+  favoriteBeers: [],
 };
 
 const userSlice = createSlice({
@@ -20,6 +21,24 @@ const userSlice = createSlice({
     },
     logout(state) {
       state = initialUserState;
+    },
+    addFavoriteBeer(state, action) {
+      const newBeer = action.payload;
+      const existingBeer = state.favoriteBeers.find(beer => beer.id === newBeer.id);
+
+      if (existingBeer) {
+        return;
+      }
+      state.favoriteBeers.push(newBeer);
+    },
+    removeFavoriteBeer(state, action){
+
+    },
+    addToMailingList(state, action) {
+
+    },
+    removeFromMailingList(state, action) {
+
     },
   }
 });
