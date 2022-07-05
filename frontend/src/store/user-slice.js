@@ -28,10 +28,20 @@ const userSlice = createSlice({
 
       if (existingBeer) {
         return;
+      } else {
+        state.favoriteBeers.push(newBeer);
       }
-      state.favoriteBeers.push(newBeer);
     },
     removeFavoriteBeer(state, action){
+      const id = action.payload;
+      const existingBeer = state.favoriteBeers.find(beer => beer.id === id);
+
+      if (!existingBeer) {
+        return;
+      } else {
+        state.favoriteBeers.filter(beer => beer.id !== id);
+      }
+
 
     },
     addToMailingList(state, action) {
