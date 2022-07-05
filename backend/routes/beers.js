@@ -1,10 +1,15 @@
 const express = require("express");
+const {
+  getBeers,
+  getBeer,
+  createBeer,
+  deleteBeer,
+  updateBeer,
+} = require('../controllers/beerControllers');
 const router = express.Router();
 
 // GET all beers
-router.get("/", (req, res) => {
-  res.json({ mssg: "GET all beers" });
-});
+router.get("/", getBeers);
 
 // GET a single beer
 router.get("/:id", (req, res) => {

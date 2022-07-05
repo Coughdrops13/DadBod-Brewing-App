@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Schema = mogoose.Schema;
+const Schema = mongoose.Schema;
 
 const beerSchema = new Schema({
   title: {
@@ -24,4 +24,6 @@ const beerSchema = new Schema({
     contentType: String,
     required: true,
   }
-})
+});
+
+module.exports = mongoose.model('Beer', beerSchema);
