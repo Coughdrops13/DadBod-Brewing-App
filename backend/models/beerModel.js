@@ -19,7 +19,7 @@ const beerSchema = new Schema({
     type: String,
     required: false,
   },
-  image: {
+  img: {
     data: Buffer,
     contentType: String,
     required: true,
