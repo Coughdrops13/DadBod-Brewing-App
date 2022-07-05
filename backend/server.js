@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.get("/api/beers", beersRoutes);
+app.use("/api/beers", beersRoutes);
 
 //connect to db
 mongoose

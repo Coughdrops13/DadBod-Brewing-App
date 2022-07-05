@@ -11,7 +11,7 @@ const beerSchema = new Schema({
     type: String,
     required: true,
   },
-  ABV: {
+  abv: {
     type: Number,
     required: true,
   },
