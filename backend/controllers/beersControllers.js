@@ -1,7 +1,7 @@
 const Beer = require("../models/beerModel");
 const mongoose = require("mongoose");
 
-import emptyFields from "../helpers/emptyFields";
+const emptyFields = require("../helpers/emptyFields");
 
 // GET all beers
 const getBeers = async (req, res) => {
@@ -28,18 +28,18 @@ const getBeer = async (req, res) => {
 };
 // CREATE a new beer
 const createBeer = async (req, res) => {
-  const { title, variety, abv, description, img } = req.body;
+  const { title, variety, abv, description} = req.body;
 
-  const emptyFieldsArray = emptyFields([title, variety, abv, img]);
+  // const emptyFieldsArray = emptyFields([title, variety, abv]);
 
-  if (emptyFieldsArray.length > 0) {
-    return res
-      .status(400)
-      .json({ error: "Please fill all required fields", emptyFieldsArray });
-  }
+  // if (emptyFieldsArray.length > 0) {
+  //   return res
+  //     .status(400)
+  //     .json({ error: "Please fill all required fields", emptyFieldsArray });
+  // }
 
   try {
-    const beer = await Beer.create({ title, variety, abv, description, img });
+    const beer = await Beer.create({ title, variety, abv, description});
     res.status(200).json(beer);
   } catch (error) {
     res.status(400).json({ error: error.message });

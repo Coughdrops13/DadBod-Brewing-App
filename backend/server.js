@@ -11,13 +11,15 @@ const app = express();
 app.use(express.json());
 
 app.use((req, res, next) => {
-  console.log(`PATH:`, req.path, ` METHOD:`, req.method);
+  console.log(`PATH:`, req.path, ` METHOD:`, req.method, `BODY:`, req.body);
+  console.log(res.status);
+  next();
 });
 
 // routes
-app.use("/api/beers", beersRoutes);
+app.use("/DadBod", beersRoutes);
 
-//connect to db
+//connect server to db
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
