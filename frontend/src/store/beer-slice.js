@@ -9,7 +9,7 @@ const beerSlice = createSlice({
   initialState: initialBeerState,
   reducers: {
     getBeersList(state, action) {
-      state.inventory = [],
+      // state.inventory = [],
       state.inventory.concat(action.payload)
     },
     addBeer(state, action) {
