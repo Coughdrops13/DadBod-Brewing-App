@@ -15,9 +15,9 @@ const userSlice = createSlice({
       state.userName = action.payload.userName;
       state.isLoggedIn = true;
 
-      if (action.payload.userName === 'Coughdrops13') {
-        state.admin === true;
-      }
+      // if (action.payload.userName === 'Coughdrops13') {
+      //   state.admin === true;
+      // }
     },
     logout(state) {
       state = initialUserState;
@@ -44,12 +44,12 @@ const userSlice = createSlice({
 
 
     },
-    addToMailingList(state, action) {
+    // addToMailingList(state, action) {
 
-    },
-    removeFromMailingList(state, action) {
+    // },
+    // removeFromMailingList(state, action) {
 
-    },
+    // },
   }
 });
 

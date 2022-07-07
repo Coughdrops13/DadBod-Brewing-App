@@ -1,9 +1,15 @@
-import './index.css';
+import { Fragment } from 'react';
 
+import Beers from './components/Beers';
+import Layout from './Layout/Layout';
 
 function App() {
   return (
-   <Beers /> 
+    <Fragment>
+      <Layout>
+        <Beers /> 
+      </Layout>
+    </Fragment>
   );
 }
 
