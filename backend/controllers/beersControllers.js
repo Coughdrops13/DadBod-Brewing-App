@@ -28,7 +28,7 @@ const getBeer = async (req, res) => {
 };
 // CREATE a new beer
 const createBeer = async (req, res) => {
-  const { title, variety, abv, description} = req.body;
+  const { title, variety, abv, description } = req.body;
 
   // const emptyFieldsArray = emptyFields([title, variety, abv]);
 

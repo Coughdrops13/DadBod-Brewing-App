@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const cookieSession = require('cookie-session');
 const express = require("express");
 const mongoose = require("mongoose");
 const beersRoutes = require("./routes/beers");
@@ -15,6 +16,11 @@ app.use((req, res, next) => {
   console.log(`PATH:`, req.path, ` METHOD:`, req.method, `BODY:`, req.body);
   next();
 });
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ["key1"],
+})) 
 
 // routes
 app.use("/DadBod/beers", beersRoutes);
