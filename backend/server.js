@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const beersRoutes = require("./routes/beers");
+const usersRoutes = require("./routes/users");
 
 // express app
 const app = express();
@@ -12,12 +13,12 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   console.log(`PATH:`, req.path, ` METHOD:`, req.method, `BODY:`, req.body);
-  console.log(res.status);
   next();
 });
 
 // routes
-app.use("/DadBod", beersRoutes);
+app.use("/DadBod/beers", beersRoutes);
+app.use("/DadBod/users", usersRoutes);
 
 //connect server to db
 mongoose
