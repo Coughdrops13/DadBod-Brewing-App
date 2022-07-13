@@ -9,23 +9,24 @@ const beerSlice = createSlice({
   initialState: initialBeerState,
   reducers: {
     getBeersList(state, action) {
-      // state.inventory = [],
-      state.inventory.concat(action.payload)
+      console.log('ACTION.PAYLOAD', action.payload)
+      state.inventory = action.payload;
+      console.log("STATE>INVENTORY", state.inventory)
     },
-    addBeer(state, action) {
-      const newBeer = action.payload;
-      const existingBeer = state.beers.inventory.find(beer => beer.name === newBeer.name);
+    // addBeer(state, action) {
+    //   const newBeer = action.payload;
+    //   const existingBeer = state.beers.inventory.find(beer => beer.name === newBeer.name);
 
-      if (!existingBeer) {
-        state.beers.inventory.push(newBeer);
-      }
-    },
-    removeBeer(state, action) {
-      const beerName = action.payload;
+    //   if (!existingBeer) {
+    //     state.beers.inventory.push(newBeer);
+    //   }
+    // },
+    // removeBeer(state, action) {
+    //   const beerName = action.payload;
 
-      state.beers.inventory.filter(beer => beer.name !== beerName)
+    //   state.beers.inventory.filter(beer => beer.name !== beerName)
 
-    },
+    // },
   },
 })
 
