@@ -1,4 +1,4 @@
-import { Routes, Route, Switch } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import AllBeers from "./pages/AllBeers";
@@ -10,7 +10,7 @@ function App() {
     <div>
       <main>
         <Layout>
-          <Switch>
+          <Routes>
             <Route path="/" exact>
               <Home />
             </Route>
@@ -20,7 +20,7 @@ function App() {
             <Route path="/beers/:beerId">
               <BeerDetails />
             </Route>
-          </Switch>
+          </Routes>
         </Layout>
       </main>
     </div>
