@@ -11,15 +11,9 @@ function App() {
       <main>
         <Layout>
           <Routes>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/beers">
-              <AllBeers />
-            </Route>
-            <Route path="/beers/:beerId">
-              <BeerDetails />
-            </Route>
+            <Route path="/" element={<Home />} exact />
+            <Route path="/beers" element={<AllBeers />} />
+            <Route path="/beers/:beerId" element={<BeerDetails />} />
           </Routes>
         </Layout>
       </main>
