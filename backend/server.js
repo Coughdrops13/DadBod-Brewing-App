@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 // routes
 app.use("/DadBod/beers", beersRoutes);
 app.use("/DadBod/users", usersRoutes);
+app.use(express.static('public'))
 
 //connect server to db
 mongoose

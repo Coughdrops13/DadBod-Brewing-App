@@ -1,15 +1,21 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import BeersList from '../components/BeersList';
-
+import { fetchBeersData } from "../store/beer-actions";
+import BeersList from "../components/BeersList";
 
 const AllBeers = (props) => {
-  const beersList = useSelector(state => state.beers.inventory);
 
-  console.log("FROM ALLBEERS BEERSLIST", beersList);
-  return (
-    <BeersList inventory={beersList} />
-  );
+  // grab all beers in db and update redux store
+  // then access store with useSelector
+  const dispatch = useDispatch();
+  const beersList = useSelector((state) => state.beers.inventory);
+
+  useEffect(() => {
+    dispatch(fetchBeersData());
+  }, [dispatch]);
+
+  return <BeersList inventory={beersList} />;
 };
 
 export default AllBeers;

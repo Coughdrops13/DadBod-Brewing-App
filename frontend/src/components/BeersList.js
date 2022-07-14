@@ -1,19 +1,23 @@
-import Beer from "./Beer";
+import { Fragment } from "react";
+
+import BeerListItem from "./BeerListItem";
 
 const BeersList = (props) => {
-  const inventory = props.inventory.map(beer => {
-    return (
-      <Beer key={beer.id} beer={beer} />
-    )
-  })
+  const beerInventory = props.inventory;
 
   return (
-    <div>
-      <ul>
-        {inventory}
-      </ul>
-    </div>
-  )
+    <Fragment>
+      {beerInventory.map((beer) => (
+        <BeerListItem
+          key={beer._id}
+          title={beer.title}
+          variety={beer.variety}
+          abv={beer.abv}
+          description={beer.description}
+        />
+      ))}
+    </Fragment>
+  );
 };
 
 export default BeersList;

@@ -1,6 +1,6 @@
 import { beerActions } from "./beer-slice";
 
-export const fetchBeerData = () => {
+export const fetchBeersData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch("/DadBod/beers");
