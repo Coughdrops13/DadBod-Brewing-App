@@ -10,6 +10,7 @@ const BeersList = (props) => {
       {beerInventory.map((beer) => (
         <BeerListItem
           key={beer._id}
+          id={beer._id}
           title={beer.title}
           variety={beer.variety}
           abv={beer.abv}
