@@ -8,23 +8,10 @@ const beerSlice = createSlice({
   name: 'beers',
   initialState: initialBeerState,
   reducers: {
-    getBeersList(state, action) {
+    setBeersList(state, action) {
       state.inventory = action.payload;
     },
-    // addBeer(state, action) {
-    //   const newBeer = action.payload;
-    //   const existingBeer = state.beers.inventory.find(beer => beer.name === newBeer.name);
-
-    //   if (!existingBeer) {
-    //     state.beers.inventory.push(newBeer);
-    //   }
-    // },
-    // removeBeer(state, action) {
-    //   const beerName = action.payload;
-
-    //   state.beers.inventory.filter(beer => beer.name !== beerName)
-
-    // },
+    
   },
 })
 
