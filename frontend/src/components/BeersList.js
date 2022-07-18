@@ -1,9 +1,13 @@
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
+
 
 import BeerListItem from "./BeerListItem";
 
 const BeersList = (props) => {
-  const beerInventory = props.inventory;
+  const beerInventory = useSelector((state) => state.beers.inventory);
+  console.log('BEER INVENTORY FROM BEERSLIST COMPONENT', beerInventory);
+
 
   return (
     <Fragment>

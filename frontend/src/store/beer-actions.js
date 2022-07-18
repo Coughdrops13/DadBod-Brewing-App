@@ -1,8 +1,6 @@
-import { beerActions } from "./beer-slice";
-
-export const fetchBeersData = () => {
-  return async (dispatch) => {
-    const fetchData = async () => {
+export async function fetchBeersData ()  {
+  // return async (dispatch) => {
+    // const fetchData = async () => {
       const response = await fetch("/DadBod/beers");
       const data = await response.json();
       
@@ -10,20 +8,20 @@ export const fetchBeersData = () => {
         throw new Error(data.message || "Fetching beer data failed...");
       }
 
+      console.log("DATA", data);
 
       return data;
-    };
-
-    try {
-      const beerData = await fetchData();
-      dispatch(beerActions.setBeersList(beerData))
-    } catch (error) {
-      console.log("ERROR", error);
-    }
-  };
+    // };
+    // try {
+    //   fetchData() 
+    // } catch (error) {
+    //   console.log('Error fetching ALL beers.', error);
+    // }
+  // }
+    
 };
 
-export const fetchSingleBeer = (beerId) => {
+export async function fetchSingleBeer (beerId) {
   return async (disptach) => {
     const fetchData = async () => {
       const response = await fetch(`/DadBod/beers/${beerId}`)
@@ -43,11 +41,9 @@ export const fetchSingleBeer = (beerId) => {
     }
 
     try {
-      const beerData = fetchData();
-      return beerData;
-
+      fetchData();
     } catch (error) {
-      console.log("ERROR", error);
+      console.log("Error fetching ONE beer.", error);
     }
   }
 };

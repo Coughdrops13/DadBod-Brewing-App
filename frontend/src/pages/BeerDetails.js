@@ -1,12 +1,21 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
+import { fetchSingleBeer } from '../store/beer-actions';
 
 import SingleBeer from "../components/SingleBeer";
 
 const BeerDetails = (props) => {
-  const params = useParams;
+  const dispatch = useDispatch;
+  const params = useParams();
   const beerId = params.beerId;
-  const beer = useSelector((state) => state.inventory[beerId])
+
+  useEffect(() => {
+    dispatch(fetchSingleBeer(beerId))
+  }, [dispatch, fetchSingleBeer]);
+
+  const beer = useSelector
 
   return (
     <SingleBeer beer={beer} />

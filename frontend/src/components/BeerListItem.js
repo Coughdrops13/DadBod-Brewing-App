@@ -9,7 +9,7 @@ const BeerListItem = (props) => {
       <p>{props.title}</p>
       <p>{props.variety} - {props.abv}% abv</p>
       <p>{props.description}</p>
-      <div><Link to={`/beers/${beer._id}`}></Link></div>
+      <div><Link to={`/beers/${props.id}`}>Details</Link></div>
     </li>
   )
 };
