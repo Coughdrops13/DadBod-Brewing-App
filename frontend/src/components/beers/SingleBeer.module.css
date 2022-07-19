@@ -1,0 +1,41 @@
+.beer {
+  background-color: #162b2b;
+  color: white;
+  border-radius: 6px;
+  padding: 3rem;
+  margin: 3rem auto;
+  width: 90%;
+  max-width: 40rem;
+  text-align: center;
+}
+
+p.title {
+  font-size: 1.5rem;
+  color: #f0ece7;
+}
+
+p.disclaimer {
+  font-size: 0.8rem;
+  color: #B35E2F;
+}
+
+.beer figcaption {
+  font-style: italic;
+  font-size: 1rem;
+  color: #a1e0e0;
+}
+
+.btn {
+  cursor: pointer;
+  font: inherit;
+  color: #2e2c2a;
+  border: none;
+  background-color: none;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+}
+
+.img {
+  height: 10rem;
+}

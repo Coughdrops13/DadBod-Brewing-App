@@ -1,19 +1,41 @@
 .header {
   width: 100%;
   height: 5rem;
-  padding: 0 10%;
   display: flex;
-  align-items: center;
+  padding: 0 10%;
   justify-content: space-between;
-  background-color: #252424;
+  align-items: center;
+  background-color: #2e2c2a;
+  position: fixed;
+  top: 0px;
 }
 
-.header h1 {
-  color: white;
+.logo {
+  font-size: 2rem;
+  color: #B35E2F;
 }
 
-.header ul {
+.nav ul {
   list-style: none;
+  display: flex;
   margin: 0;
   padding: 0;
+}
+
+.nav li {
+  margin-left: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #b8b2ac;
+  margin-bottom: 0.5rem
+}
+
+.nav a:hover,
+.nav a:active,
+.nav a.active {
+  color: #f0ece7;
+  text-decoration: underline;
 }

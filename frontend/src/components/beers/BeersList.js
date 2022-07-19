@@ -5,9 +5,7 @@ import { useSelector } from "react-redux";
 import BeerListItem from "./BeerListItem";
 
 const BeersList = (props) => {
-  const beerInventory = useSelector((state) => state.beers.inventory);
-  console.log('BEER INVENTORY FROM BEERSLIST COMPONENT', beerInventory);
-
+  const beerInventory = props.inventory;
 
   return (
     <Fragment>

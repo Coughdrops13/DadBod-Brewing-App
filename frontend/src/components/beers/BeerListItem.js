@@ -7,8 +7,8 @@ const BeerListItem = (props) => {
     <li>
       <img src='http://localhost:3001/images/kittenImages/kittenImage.jpg' className={classes.img} />
       <p>{props.title}</p>
-      <p>{props.variety} - {props.abv}% abv</p>
-      <p>{props.description}</p>
+      {/* <p>{props.variety} - {props.abv}% abv</p>
+      <p>{props.description}</p> */}
       <div><Link to={`/beers/${props.id}`}>Details</Link></div>
     </li>
   )
