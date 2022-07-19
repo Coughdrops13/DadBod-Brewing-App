@@ -29,6 +29,7 @@ const createUser = async (req, res) => {
   const { email, password, passwordVerify } = req.body;
 
   try {
+    // email validation
     if (!email || !password || passwordVerify) {
       return res
         .status(400)
@@ -56,8 +57,7 @@ const createUser = async (req, res) => {
 
     const user = await User.create({
       userName,
-      mailingList,
-      favoriteBeers: [],
+      password,
     });
     res.status(200).json({ user });
   } catch (error) {
