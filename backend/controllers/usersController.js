@@ -2,15 +2,15 @@ const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-// // GET all users (for testing purposes)
-// const getUsers = async (req, res) => {
-//   const users = await User.find({});
+// GET all users (for testing purposes)
+const getUsers = async (req, res) => {
+  const users = await User.find({});
 
-//   if (!users) {
-//     return res.status(400).json({ error: error.message });
-//   }
-//   res.status(200).json(users);
-// };
+  if (!users) {
+    return res.status(400).json({ error: error.message });
+  }
+  res.status(200).json(users);
+};
 
 // // GET a single user (user's homepage)
 // const getUser = async (req, res) => {
@@ -31,12 +31,12 @@ const createUser = async (req, res) => {
 
   try {
     // email validation
-    if (!email || !password || passwordVerify) {
+    if (!email || !password || !passwordVerify) {
       return res
         .status(400)
         .json({ errorMessage: "Please enter all required fields." });
     }
-    if (password.length > 6) {
+    if (password.length < 6) {
       return res
         .status(400)
         .json({ errorMessage: "Password must be at least 6 character long." });
@@ -60,11 +60,16 @@ const createUser = async (req, res) => {
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
 
-    const user = await User.create({
-      userName,
-      password,
+    // save a new user account to the database
+
+    const newUser = new User ({
+      email,
+      passwordHash,
     });
-    res.status(200).json({ user });
+
+    const savedUser = await newUser.save();
+
+    res.status(200).json({ savedUser });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -107,7 +112,7 @@ const createUser = async (req, res) => {
 // };
 
 module.exports = {
-  // getUsers,
+  getUsers,
   // getUser,
   createUser,
   // deleteUser,

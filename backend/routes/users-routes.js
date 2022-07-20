@@ -1,12 +1,15 @@
 const express = require('express');
 const {
-  // getUsers,
+  getUsers,
   // getUser,
   createUser,
   // deleteUser,
   // updateUser,
 } = require('../controllers/usersController');
 const router = express.Router();
+
+// GET all users (for testing only)
+router.get("/", getUsers);
 
 // // GET a single user (user's homepage)
 // router.get("/:id", getUser)
@@ -19,8 +22,5 @@ router.post("/createUser", createUser);
 
 // //UPDATE a user
 // router.patch("/:id", updateUser);
-
-// // GET all users (for testing only)
-// router.get("/", getUsers);
 
 module.exports = router;
