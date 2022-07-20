@@ -1,4 +1,6 @@
 import { Fragment, useState } from "react";
+import axios from 'axios';
+
 
 const RegisterUserForm = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -18,7 +20,7 @@ const RegisterUserForm = () => {
     setEnteredVerification(event.target.value);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     try {
@@ -27,16 +29,21 @@ const RegisterUserForm = () => {
         password: enteredPassword,
         verification: enteredVerification,
       }
+
+      const response = await axios.post("/DadBod/users/createUser", registerData);
+      const data = response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Error creating new user");
+      }
+
     } catch (error) {
       console.log("REGISTRATION FORM ERROR", error);
     }
-    if (enteredPassword !== enteredVerification) {
-      
-    }
 
-    setEnteredEmail('');
-    setEnteredPassword('');
-    setEnteredVerification('');
+    // setEnteredEmail('');
+    // setEnteredPassword('');
+    // setEnteredVerification('');
   };
 
   return (
