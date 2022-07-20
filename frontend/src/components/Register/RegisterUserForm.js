@@ -4,6 +4,7 @@ const RegisterUserForm = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredVerification, setEnteredVerification] = useState("");
+  
 
   const enteredEmailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -19,6 +20,19 @@ const RegisterUserForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    try {
+      const registerData = {
+        email: enteredEmail,
+        password: enteredPassword,
+        verification: enteredVerification,
+      }
+    } catch (error) {
+      console.log("REGISTRATION FORM ERROR", error);
+    }
+    if (enteredPassword !== enteredVerification) {
+      
+    }
 
     setEnteredEmail('');
     setEnteredPassword('');
