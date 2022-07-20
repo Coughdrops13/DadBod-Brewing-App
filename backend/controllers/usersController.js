@@ -1,6 +1,10 @@
+require("dotenv").config();
+
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const cookieSession = require("cookie-session");
 
 // GET all users (for testing purposes)
 const getUsers = async (req, res) => {
@@ -68,6 +72,15 @@ const createUser = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
+
+    // create and sign jsonwebtoken 
+    const token = jwt.sign({
+      user: savedUser._id
+    }, process.env.JWT_SECRET)
+    console.log("TOKEN", token);
+
+    // send the token in an http-only cookie
+    res.session
 
     res.status(200).json({ savedUser });
   } catch (error) {

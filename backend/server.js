@@ -1,10 +1,10 @@
 require("dotenv").config();
 
-// const cookieSession = require('cookie-session');
 const express = require("express");
 const mongoose = require("mongoose");
 const beersRoutes = require("./routes/beers-routes");
 const usersRoutes = require("./routes/users-routes");
+const cookieSession = require("cookie-session");
 
 // express app
 const app = express();
@@ -18,8 +18,8 @@ app.use((req, res, next) => {
 });
 
 // app.use(cookieSession({
-//   name: 'session',
-//   keys: ["key1"],
+//   name: 'token',
+//   keys: [process.env.JWT_SECRET],
 // })) 
 
 // routes
