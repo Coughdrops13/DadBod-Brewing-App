@@ -15,7 +15,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/beers" element={<AllBeers />} />
             <Route path="/beers/:beerId" element={<BeerDetails />} />
-            <Route path="/users/createUser" element={<RegisterUserForm />} />
+            <Route path="/createUser" element={<RegisterUserForm />} />
           </Routes>
         </Layout>
       </main>
