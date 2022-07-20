@@ -4,9 +4,9 @@ const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const cookieSession = require("cookie-session");
 
-// GET all users (for testing purposes)
+// -----------------------------GET all users (for testing purposes)----------------------
+
 const getUsers = async (req, res) => {
   const users = await User.find({});
 
@@ -16,7 +16,8 @@ const getUsers = async (req, res) => {
   res.status(200).json(users);
 };
 
-// // GET a single user (user's homepage)
+// -----------------------------GET a single user (user's homepage)-----------------------
+
 // const getUser = async (req, res) => {
 //   const { id } = req.params;
 
@@ -29,7 +30,8 @@ const getUsers = async (req, res) => {
 //   res.status(200).json(user);
 // };
 
-// CREATE a new user account
+// --------------------------------CREATE a new user account-------------------------------
+
 const createUser = async (req, res) => {
   const { email, password, passwordVerify } = req.body;
 
@@ -66,29 +68,39 @@ const createUser = async (req, res) => {
 
     // save a new user account to the database
 
-    const newUser = new User ({
+    const newUser = new User({
       email,
       passwordHash,
     });
 
     const savedUser = await newUser.save();
 
-    // create and sign jsonwebtoken 
-    const token = jwt.sign({
-      user: savedUser._id
-    }, process.env.JWT_SECRET)
-    console.log("TOKEN", token);
+    // create and sign jsonwebtoken
+    const token = jwt.sign(
+      {
+        user: savedUser._id,
+      },
+      process.env.JWT_SECRET
+    );
 
     // send the token in an http-only cookie
-    res.session
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({ savedUser })
+      .send();
 
-    res.status(200).json({ savedUser });
+    // res.status(200).json({ savedUser });
   } catch (error) {
+    console.log("CREATE USER ERROR", error);
     return res.status(500).json({ error: error.message });
   }
 };
 
-// // DELETE a user account
+// --------------------------------DELETE a user account---------------------------------
+
 // const deleteUser = async (req, res) => {
 //   const { id } = req.params;
 
@@ -107,7 +119,8 @@ const createUser = async (req, res) => {
 //   res.status(200).json(user);
 // };
 
-// //UPDATE a user account
+// ----------------------------------UPDATE a user account------------------------------------
+
 // const updateUser = async (req, res) => {
 //   const { id } = req.params;
 
@@ -124,10 +137,79 @@ const createUser = async (req, res) => {
 //   res.status(200).json(user);
 // };
 
+// ------------------------------------Login a user------------------------------------------
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // validate
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ errorMessage: "Please enter all required fields." });
+    }
+
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      return res
+        .status(401)
+        .json({ errorMessage: "Incorrect email or password." });
+    }
+
+    const passwordIsCorrect = await bcrypt.compare(
+      password,
+      existingUser.passwordHash
+    );
+
+    if (!passwordIsCorrect) {
+      return res
+        .status(401)
+        .json({ errorMessage: "Incorrect email or password." });
+    }
+
+    // sign web token
+    const token = jwt.sign(
+      {
+        user: existingUser._id,
+      },
+      process.env.JWT_SECRET
+    );
+
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({ existingUser })
+      .send();
+  } catch (error) {
+    console.log("LOGIN ERROR", error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+// ------------------------------------Login a user------------------------------------------
+const logoutUser = (req, res) => {
+  res
+    .cookie("token", "", {
+      httpOnly: true,
+      expires: new Date(0),
+    })
+    .status(200)
+    .json({ message: "User logged out." })
+    .send();
+};
+
+// --------------------------------------Exports--------------------------------------------
+
 module.exports = {
   getUsers,
   // getUser,
   createUser,
   // deleteUser,
   // updateUser,
+  loginUser,
+  logoutUser,
 };
