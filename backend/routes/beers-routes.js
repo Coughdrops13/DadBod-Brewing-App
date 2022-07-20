@@ -1,4 +1,6 @@
 const express = require("express");
+const router = express.Router();
+const auth = require("../middleware/auth");
 const {
   getBeers,
   getBeer,
@@ -6,7 +8,6 @@ const {
   deleteBeer,
   updateBeer,
 } = require('../controllers/beersControllers');
-const router = express.Router();
 
 // GET all beers
 router.get("/", getBeers);
@@ -15,12 +16,12 @@ router.get("/", getBeers);
 router.get("/:id", getBeer);
 
 // POST a single beer
-router.post("/", createBeer);
+router.post("/", auth, createBeer);
 
 // DELETE a single beer
-router.delete("/:id", deleteBeer);
+router.delete("/:id", auth, deleteBeer);
 
 // UPDATE a single beer
-router.patch("/:id", updateBeer);
+router.patch("/:id", auth, updateBeer);
 
 module.exports = router;

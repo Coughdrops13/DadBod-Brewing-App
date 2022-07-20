@@ -4,12 +4,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const beersRoutes = require("./routes/beers-routes");
 const usersRoutes = require("./routes/users-routes");
+const cookieParser = require('cookie-parser');
 
 // express app
 const app = express();
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   console.log(`PATH:`, req.path, ` METHOD:`, req.method, `BODY:`, req.body);
