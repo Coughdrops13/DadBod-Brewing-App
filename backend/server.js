@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const beersRoutes = require("./routes/beers-routes");
 const usersRoutes = require("./routes/users-routes");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 // express app
 const app = express();
@@ -12,6 +13,12 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+);
 
 app.use((req, res, next) => {
   console.log(`PATH:`, req.path, ` METHOD:`, req.method, `BODY:`, req.body);

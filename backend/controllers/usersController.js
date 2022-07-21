@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const validateEmail = require('../helpers/validateEmail');
 
 // -----------------------------GET all users (for testing purposes)----------------------
 
@@ -41,6 +42,11 @@ const createUser = async (req, res) => {
       return res
         .status(400)
         .json({ errorMessage: "Please enter all required fields." });
+    }
+    if (!validateEmail(email)) {
+      return res
+      .status(400)
+      .json({ errorMessage: "Please enter a valid email address." }); 
     }
     if (password.length < 6) {
       return res

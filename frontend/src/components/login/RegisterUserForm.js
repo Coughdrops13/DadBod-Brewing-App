@@ -1,12 +1,10 @@
 import { Fragment, useState } from "react";
-import axios from 'axios';
-
+import axios from "axios";
 
 const RegisterUserForm = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredVerification, setEnteredVerification] = useState("");
-  
 
   const enteredEmailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -27,23 +25,29 @@ const RegisterUserForm = () => {
       const registerData = {
         email: enteredEmail,
         password: enteredPassword,
-        verification: enteredVerification,
+        passwordVerify: enteredVerification,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/DadBod/users/createUser",
+        registerData,
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log("RESPONSE", response);
+
+      if (!response.statusText === "OK") {
+        throw new Error("Error creating new user");
       }
-
-      const response = await axios.post("/DadBod/users/createUser", registerData);
-      const data = response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Error creating new user");
-      }
-
     } catch (error) {
       console.log("REGISTRATION FORM ERROR", error);
     }
 
-    // setEnteredEmail('');
-    // setEnteredPassword('');
-    // setEnteredVerification('');
+    setEnteredEmail("");
+    setEnteredPassword("");
+    setEnteredVerification("");
   };
 
   return (
@@ -55,18 +59,21 @@ const RegisterUserForm = () => {
           placeholder="Email"
           value={enteredEmail}
           onChange={enteredEmailChangeHandler}
+          autoComplete="on"
         />
         <input
           type="password"
           placeholder="Password"
           value={enteredPassword}
           onChange={enteredPasswordChangeHandler}
+          autoComplete="on"
         />
         <input
           type="password"
           placeholder="Verify Password"
           value={enteredVerification}
           onChange={enteredVerificationChangeHandler}
+          autoComplete="on"
         />
         <button type="Submit">Submit</button>
       </form>

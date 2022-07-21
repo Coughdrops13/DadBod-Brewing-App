@@ -27,24 +27,24 @@ body {
 
 .btn {
   text-decoration: none;
-  background-color: teal;
+  background-color: #B35E2F;
   color: white;
   border-radius: 4px;
   padding: 0.75rem 1.5rem;
-  border: 1px solid teal;
+  border: 1px solid #B35E2F;
   cursor: pointer;
 }
 
 .btn:hover,
 .btn:active {
-  background-color: #11acac;
-  border-color: #11acac;
+  background-color: #ccb9a6;
+  border-color: #ccb9a6;
 }
 
 .btn--flat {
   cursor: pointer;
   font: inherit;
-  color: teal;
+  color: #B35E2F;
   border: none;
   background-color: none;
   text-decoration: none;
@@ -54,6 +54,6 @@ body {
 
 .btn--flat:hover,
 .btn--flat:active {
-  background-color: teal;
+  background-color: #B35E2F;
   color: white;
 }

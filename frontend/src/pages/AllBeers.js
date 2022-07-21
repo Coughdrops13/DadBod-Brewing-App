@@ -6,6 +6,7 @@ import useHttp from '../hooks/use-http';
 import { beerActions } from '../store/beer-slice';
 import BeersList from "../components/beers/BeersList";
 import Card from '../components/UI/Card';
+import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const AllBeers = (props) => {
   const { setBeersList } = beerActions;
@@ -20,7 +21,11 @@ const AllBeers = (props) => {
   
  
   if (status === 'pending') {
-    return <div>PENDING</div>
+    return (
+      <div className='centered'>
+        <LoadingSpinner />
+      </div>
+    )
   }
   if (status === 'completed') {
     return (
@@ -31,7 +36,7 @@ const AllBeers = (props) => {
 
   }
   if (status === 'error') {
-    return <div>IT DIDN'T WORK</div> 
+    return <div>IT DIDN'T WORK {error}</div> 
   }
 };
 
