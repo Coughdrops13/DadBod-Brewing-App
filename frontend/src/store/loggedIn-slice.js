@@ -1,20 +1,18 @@
-import { createSlice } from '@reactjs/toolkit'; 
+import { createSlice } from '@reduxjs/toolkit'; 
 
 const initialLoggedInState = {
-  loggedIn: false,
+  isLoggedIn: undefined,
 };
 
 const loggedInSlice = createSlice({
   name: 'loggedIn',
   initialState: initialLoggedInState,
   reducers: {
-    switchLoggedIn(state) {
-      // store current loggedIn state
-      const currentState = state.loggedIn;
-      // switch loggedIn state to opposite
-      state.loggedIn = !currentState;
-
-      console.log(`User has been logged` + currentState ? 'out' : 'in');
+    logIn(state) {
+      state.isLoggedIn = true;
+    },
+    logOut(state) {
+      state.isLoggedIn = false;
     }
   }
 })
