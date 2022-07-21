@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 const {
   getUsers,
   // getUser,
@@ -8,7 +9,7 @@ const {
   loginUser,
   logoutUser
 } = require('../controllers/usersController');
-const router = express.Router();
+const loginAuth = require('../middleware/login-auth');
 
 // GET all users (for testing only)
 router.get("/", getUsers);
@@ -30,5 +31,8 @@ router.post('/login', loginUser);
 
 // LOGOUT a user
 router.get('/logout', logoutUser);
+
+// CHECK if user is logged in
+router.get('/loggedIn', loginAuth);
 
 module.exports = router;
