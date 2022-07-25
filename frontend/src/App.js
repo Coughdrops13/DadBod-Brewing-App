@@ -19,6 +19,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
+  const { logIn, logOut } = loggedInActions;
   const {
     sendRequest,
     status,
@@ -28,27 +29,41 @@ function App() {
 
   // get token from server to check if user logged in
   useEffect(() => {
+    // THIS WORKS BUT TRY USEHTTP HOOK
+    // axios.get('http://localhost:3000/DadBod/users/loggedIn',).then((isLoggedIn) => {
+    //   const isLoggedTHEFUCKIn = isLoggedIn;
+    //   console.log("ISLOGGEDTHEFUCKIN INSIDE AXIOS PROMISE", isLoggedTHEFUCKIn);
+    //   if (!isLoggedIn.data) {
+    //     dispatch(logOut());
+    //   }
+    //   if (isLoggedIn.data) {
+    //     dispatch(logIn());
+    //   }
+
+    // }).catch((error) => {
+    //   console.log("THERE WAS AN ERROR:", error);
+    // });
     sendRequest();
-    console.log('ISLOGGEDIN', isLoggedIn);
-    if (isLoggedIn) {
-      dispatch(loggedInActions.logIn());
-    }
+
     if (!isLoggedIn) {
-      dispatch(loggedInActions.logOut());
+      dispatch(logOut());
     }
-  }, [getLoggedIn, dispatch, loggedInActions.logOut, loggedInActions.logIn]);
+
+    if (isLoggedIn) {
+      dispatch(logIn());
+    }
+  }, [dispatch, logIn, logOut]);
 
   const loggedInState = useSelector(state => state.loggedIn.isLoggedIn);
 
   console.log('loggedInState= ', loggedInState);
 
   if (status === 'pending') {
-    return (
-      <div className="centered">
-        <LoadingSpinner />
-      </div>
-    )
+    return <div className='centered'>
+      <LoadingSpinner />
+    </div>
   }
+
   if (status === 'completed') {
     return (
       <div>
@@ -69,8 +84,9 @@ function App() {
   }
 
   if (status === 'error') {
-    <div>FUCK</div>
+    return <div>SOMETHING WENT WRONG: {error}</div>
   }
+
 }
 
 export default App;
