@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 import Home from "./pages/Home";
@@ -29,12 +29,18 @@ function App() {
   // get token from server to check if user logged in
   useEffect(() => {
     sendRequest();
+    console.log('ISLOGGEDIN', isLoggedIn);
     if (isLoggedIn) {
-      dispatch(loggedInActions.logIn);
-    } else {
-      dispatch(loggedInActions.logOut);
+      dispatch(loggedInActions.logIn());
     }
-  }, [getLoggedIn, dispatch, loggedInActions]);
+    if (!isLoggedIn) {
+      dispatch(loggedInActions.logOut());
+    }
+  }, [getLoggedIn, dispatch, loggedInActions.logOut, loggedInActions.logIn]);
+
+  const loggedInState = useSelector(state => state.loggedIn.isLoggedIn);
+
+  console.log('loggedInState= ', loggedInState);
 
   if (status === 'pending') {
     return (
@@ -48,7 +54,7 @@ function App() {
       <div>
         <main>
           <Layout>
-            {isLoggedIn && <div>HELLLLLOOOOOOOO</div>}
+            {!loggedInState && <div>HELLLLLOOOOOOOO</div>}
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/beers" element={<AllBeers />} />
