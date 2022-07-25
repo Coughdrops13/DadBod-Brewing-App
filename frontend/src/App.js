@@ -43,28 +43,30 @@ function App() {
     // }).catch((error) => {
     //   console.log("THERE WAS AN ERROR:", error);
     // });
+
     sendRequest();
-
-    if (!isLoggedIn) {
-      dispatch(logOut());
-    }
-
+  }, [sendRequest]);
+  
+  useEffect(() => {
     if (isLoggedIn) {
       dispatch(logIn());
     }
-  }, [dispatch, logIn, logOut]);
+  }, [dispatch, isLoggedIn, logIn]);
 
-  const loggedInState = useSelector(state => state.loggedIn.isLoggedIn);
 
-  console.log('loggedInState= ', loggedInState);
+  const loggedInState = useSelector((state) => state.loggedIn.isLoggedIn);
+  console.log("loggedInState = ", loggedInState);
 
-  if (status === 'pending') {
-    return <div className='centered'>
-      <LoadingSpinner />
-    </div>
+    
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
-  if (status === 'completed') {
+  if (status === "completed") {
     return (
       <div>
         <main>
@@ -83,10 +85,9 @@ function App() {
     );
   }
 
-  if (status === 'error') {
-    return <div>SOMETHING WENT WRONG: {error}</div>
+  if (status === "error") {
+    return <div>SOMETHING WENT WRONG: {error}</div>;
   }
-
 }
 
 export default App;

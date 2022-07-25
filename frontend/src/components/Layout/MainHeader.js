@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import classes from "./MainHeader.module.css";
+import { loggedInActions } from "../../store/loggedIn-slice";
 
 const MainHeader = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.loggedIn.isLoggedIn);
+
+  const logoutHandler = () => {
+    dispatch(loggedInActions.logOut());
+  };
 
   return (
     <header className={classes.header}>
@@ -52,6 +58,19 @@ const MainHeader = (props) => {
                 }
               >
                 Register
+              </NavLink>
+            </li>
+          )}
+          {isLoggedIn && (
+            <li>
+              <NavLink
+                to="/"
+                // className={(navData) =>
+                //   navData.isActive ? classes.active : undefined
+                // }
+                onClick={logoutHandler}
+              >
+                Logout
               </NavLink>
             </li>
           )}

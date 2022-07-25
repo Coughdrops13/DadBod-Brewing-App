@@ -1,7 +1,12 @@
 import { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { loggedInActions } from "../../store/loggedIn-slice";
 
 const RegisterUserForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredVerification, setEnteredVerification] = useState("");
@@ -48,6 +53,9 @@ const RegisterUserForm = () => {
     setEnteredEmail("");
     setEnteredPassword("");
     setEnteredVerification("");
+
+    dispatch(loggedInActions.logIn());
+    navigate("/");
   };
 
   return (
