@@ -17,29 +17,26 @@ const getBeers = async (req, res) => {
 const getBeer = async (req, res) => {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such beer." });
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: "No such beer." });
+    }
+  
+    const beer = await Beer.findById(id);
+  
+    if (!beer) {
+      return res.status(404).json({ error: "No such beer." });
+    }
+  
+    res.status(200).json(beer);
+  } catch (error) {
+    res.status(500).json({ errorMessage: "Something went wrong internally: getBeer." })
+    console.log("ERROR: ", error);
   }
-
-  const beer = await Beer.findById(id);
-
-  if (!beer) {
-    return res.status(404).json({ error: "No such beer." });
-  }
-
-  res.status(200).json(beer);
 };
 // CREATE a new beer
 const createBeer = async (req, res) => {
   const { title, variety, abv, description } = req.body;
-
-  // const emptyFieldsArray = emptyFields([title, variety, abv]);
-
-  // if (emptyFieldsArray.length > 0) {
-  //   return res
-  //     .status(400)
-  //     .json({ error: "Please fill all required fields", emptyFieldsArray });
-  // }
 
   try {
     const beer = await Beer.create({ title, variety, abv, description});
