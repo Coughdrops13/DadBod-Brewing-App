@@ -49,33 +49,43 @@ const createBeer = async (req, res) => {
 const deleteBeer = async (req, res) => {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such beer to be deleted." });
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: "No such beer to be deleted." });
+    }
+  
+    const beer = await Beer.findOneAndDelete({ _id: id });
+  
+    if (!beer) {
+      return res.status(404).json({ error: "No such beer to be deleted." });
+    }
+  
+    res.status(200).json(beer);
+  }catch (error) {
+    res.status(500).json({ errorMessage: "Something went wrong internally: deleteBeer." })
+    console.log("ERROR: ", error);
   }
-
-  const beer = await Beer.findOneAndDelete({ _id: id });
-
-  if (!beer) {
-    return res.status(404).json({ error: "No such beer to be deleted." });
-  }
-
-  res.status(200).json(beer);
 };
 // UPDATE a single beer
 const updateBeer = async (req, res) => {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "Cannot update non-existant beer." });
-  }
-
-  const beer = await Beer.findOneAndUpdate({ _id: id }, { ...req.body });
-
-  if (!beer) {
-    return res.status(404).json({error: "Cannot update non-existant beer."})
-  }
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: "Cannot update non-existant beer." });
+    }
   
-  res.status(200).json(beer);
+    const beer = await Beer.findOneAndUpdate({ _id: id }, { ...req.body });
+  
+    if (!beer) {
+      return res.status(404).json({error: "Cannot update non-existant beer."})
+    }
+    
+    res.status(200).json(beer);
+  }catch (error) {
+    res.status(500).json({ errorMessage: "Something went wrong internally: updateBeer." })
+    console.log("ERROR: ", error);
+  }
 }
 
 module.exports = {
