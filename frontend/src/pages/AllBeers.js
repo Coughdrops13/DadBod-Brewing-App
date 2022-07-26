@@ -7,6 +7,7 @@ import { beerActions } from '../store/beer-slice';
 import BeersList from "../components/beers/BeersList";
 import Card from '../components/UI/Card';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
+import NotFound from './NotFound';
 
 const AllBeers = (props) => {
   const { setBeersList } = beerActions;

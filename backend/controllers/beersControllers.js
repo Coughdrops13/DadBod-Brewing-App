@@ -1,13 +1,16 @@
 const Beer = require("../models/beerModel");
 const mongoose = require("mongoose");
 
-const emptyFields = require("../helpers/emptyFields");
-
 // GET all beers
 const getBeers = async (req, res) => {
-  const beers = await Beer.find({}).sort({ title: 1 });
-
-  res.status(200).json(beers);
+  try {
+    const beers = await Beer.find({}).sort({ title: 1 });
+  
+    res.status(200).json(beers);
+  } catch (error) {
+    res.status(500).json({ errorMessage: "Something went wrong internally: getBeers." })
+    console.log("ERROR: ", error);
+  }
 };
 
 // GET a single beer

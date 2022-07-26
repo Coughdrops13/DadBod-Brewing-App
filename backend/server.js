@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const beersRoutes = require("./routes/beers-routes");
 const usersRoutes = require("./routes/users-routes");
+const commentsRoutes = require("./routes/comments-routes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 // routes
 app.use("/DadBod/beers", beersRoutes);
 app.use("/DadBod/users", usersRoutes);
+app.use("/DadBod/beers/:id/comments", commentsRoutes);
 app.use(express.static("public"));
 
 //connect server to db
