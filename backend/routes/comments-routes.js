@@ -3,13 +3,13 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const {
   getComments,
-  // createComment,
+  createComment,
 } = require('../controllers/commentsControllers');
 
 // GET all comments
 router.get('/', getComments);
 
 // CREATE a comment
-// router.post('/newComment', auth, createComment);
+router.post('/newComment', createComment);
 
 module.exports = router;

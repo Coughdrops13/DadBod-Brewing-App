@@ -42,7 +42,8 @@ const createBeer = async (req, res) => {
     const beer = await Beer.create({ title, variety, abv, description});
     res.status(200).json(beer);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ errorMessage: "Something went wrong internally: createBeer ." })
+    console.log("ERROR: ", error);
   }
 };
 // DELETE a single beer
