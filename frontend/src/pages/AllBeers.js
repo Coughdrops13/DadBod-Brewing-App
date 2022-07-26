@@ -27,6 +27,13 @@ const AllBeers = (props) => {
       </div>
     )
   }
+
+  if (status === 'completed' && !loadedBeers) {
+    return (
+      <NotFound />
+    )
+  }
+
   if (status === 'completed') {
     return (
       <Card>
