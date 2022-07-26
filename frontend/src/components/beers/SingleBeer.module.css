@@ -36,6 +36,11 @@ p.disclaimer {
   border-radius: 4px;
 }
 
+.btn:hover,
+.btn:active {
+  color:#B35E2F;
+}
+
 .img {
   height: 10rem;
 }

@@ -13,6 +13,7 @@ import { getLoggedIn } from "./lib/api";
 import useHttp from "./hooks/use-http";
 import LoadingSpinner from "./components/UI/LoadingSpinner";
 import { loggedInActions } from "./store/loggedIn-slice";
+import NotFound from "./pages/NotFound";
 
 // all server to send cookies to browser by default
 axios.defaults.withCredentials = true;
@@ -31,18 +32,16 @@ function App() {
   useEffect(() => {
     sendRequest();
   }, [sendRequest]);
-  
+
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(logIn());
     }
   }, [dispatch, isLoggedIn, logIn]);
 
-
   const loggedInState = useSelector((state) => state.loggedIn.isLoggedIn);
   console.log("loggedInState = ", loggedInState);
 
-    
   if (status === "pending") {
     return (
       <div className="centered">
@@ -60,7 +59,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/beers" element={<AllBeers />} />
-              <Route path="/beers/:beerId" element={<BeerDetails />} />
+              <Route path="/beers/:beerId/*" element={<BeerDetails />} />
               <Route path="/createUser" element={<RegisterUserForm />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="*" element={<NotFound />} />

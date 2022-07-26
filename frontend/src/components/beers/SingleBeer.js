@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
-import classes from './SingleBeer.module.css';
+import { Fragment, useState } from "react";
+import { Link, Routes, Route, useNavigate, useMatch } from "react-router-dom";
+import classes from "./SingleBeer.module.css";
 
-import Card from '../UI/Card';
+import Card from "../UI/Card";
+import CommentsList from "../comments/CommentsList";
 
 const SingleBeer = (props) => {
   const { beer } = props;
@@ -10,32 +12,22 @@ const SingleBeer = (props) => {
     <Card>
       <figure className={classes.beer}>
         <div>
-          <img src="http://localhost:3001/images/kittenImages/kittenImage.jpg" className={classes.img} />
+          <img
+            src="http://localhost:3001/images/kittenImages/kittenImage.jpg"
+            className={classes.img}
+          />
           <p className={classes.title}>{beer.title}</p>
           <figcaption>
             <p>{beer.description}</p>
             <p>abv: {beer.abv}%</p>
           </figcaption>
-          <p className={classes.disclaimer}>{beer.variety} brought to you by DadBod Brewing</p>
-        </div> 
+          <p className={classes.disclaimer}>
+            {beer.variety} brought to you by DadBod Brewing
+          </p>
+        </div>
       </figure>
-      <div>
-        <Link to='/beers' className={classes.btn}>{"<<"} Beer List</Link>
-      </div>
     </Card>
-  )
+  );
 };
 
 export default SingleBeer;
-
-
-// const HighlightedQuote = (props) => {
-//   return (
-//     <figure className={classes.beer}>
-//       <p>"{props.text}"</p>
-//       <figcaption>-{props.author}</figcaption>
-//     </figure>
-//   );
-// };
-
-// export default HighlightedQuote;
