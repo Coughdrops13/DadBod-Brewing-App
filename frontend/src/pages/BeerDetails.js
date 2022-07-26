@@ -7,6 +7,7 @@ import SingleBeer from "../components/beers/SingleBeer";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 import CommentsList from "../components/comments/CommentsList";
 import CommentForm from "../components/comments/CommentForm";
+import NotFound from "./NotFound";
 
 const BeerDetails = (props) => {
   const params = useParams();
@@ -33,6 +34,12 @@ const BeerDetails = (props) => {
 
   if (error) {
     return <div>{error}</div>;
+  }
+
+  if (status === 'completed' && !loadedBeer) {
+    return (
+      <NotFound />
+    )
   }
 
   return (
