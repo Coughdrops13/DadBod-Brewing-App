@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { fetchBeersData } from '../store/beer-actions';
+import { fetchBeersData } from '../lib/api';
 import useHttp from '../hooks/use-http';
 import { beerActions } from '../store/beer-slice';
 import BeersList from "../components/beers/BeersList";

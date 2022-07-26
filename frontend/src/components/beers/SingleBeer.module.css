@@ -1,5 +1,5 @@
 .beer {
-  background-color: #162b2b;
+  background-color: #1a1a1a;
   color: white;
   border-radius: 6px;
   padding: 3rem;
@@ -28,7 +28,7 @@ p.disclaimer {
 .btn {
   cursor: pointer;
   font: inherit;
-  color: #2e2c2a;
+  color: #1a1a1a;
   border: none;
   background-color: none;
   text-decoration: none;
