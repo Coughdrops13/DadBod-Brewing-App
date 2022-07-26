@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import axios from 'axios';
 
 import classes from "./MainHeader.module.css";
 import { loggedInActions } from "../../store/loggedIn-slice";
@@ -8,8 +9,11 @@ const MainHeader = (props) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.loggedIn.isLoggedIn);
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    await axios.get("http://localhost:3000/DadBod/users/logout")
+    
     dispatch(loggedInActions.logOut());
+
   };
 
   return (
@@ -65,9 +69,6 @@ const MainHeader = (props) => {
             <li>
               <NavLink
                 to="/"
-                // className={(navData) =>
-                //   navData.isActive ? classes.active : undefined
-                // }
                 onClick={logoutHandler}
               >
                 Logout

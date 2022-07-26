@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 const loginAuth = async (req, res, next) => {
-  console.log('LOGGIN_AUTH TRIGGERED');
   try {
     const token = req.cookies.token;
 

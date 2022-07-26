@@ -19,7 +19,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
-  const { logIn, logOut } = loggedInActions;
+  const { logIn } = loggedInActions;
   const {
     sendRequest,
     status,
@@ -71,7 +71,7 @@ function App() {
       <div>
         <main>
           <Layout>
-            {!loggedInState && <div>HELLLLLOOOOOOOO</div>}
+            {!loggedInState && <div>NO ONE IS LOGGED IN RIGHT NOW</div>}
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/beers" element={<AllBeers />} />
