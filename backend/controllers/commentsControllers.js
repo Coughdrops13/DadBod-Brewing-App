@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 
 // GET all comments
 const getComments = async (req, res) => {
+  const { id } = req.params;
+  console.log("BEER_ID FROM PARAMS", id)
   try {
-    const comments = await Comment.find({}).sort({ createdAt: -1 });;
+    const comments = await Comment.find({ beer_id: id}).sort({ createdAt: -1 });;
 
     res.status(200).json(comments);
   }catch (error) {

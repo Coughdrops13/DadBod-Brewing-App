@@ -7,7 +7,7 @@ const {
 } = require('../controllers/commentsControllers');
 
 // GET all comments
-router.get('/', getComments);
+router.get('/:id', getComments);
 
 // CREATE a comment
 router.post('/:id/newComment', createComment);

@@ -38,7 +38,7 @@ export async function getLoggedIn() {
 // -----------------------------------Comments Functions----------------------------------------
 
 export async function getComments(beer_id) {
-  const comments = await axios.get(`http://localhost:3000/DadBod/beers/${beer_id}/comments`);
+  const comments = await axios.get(`http://localhost:3000/DadBod/comments/${beer_id}`);
   console.log("COMMENTS: ", comments);
   return comments.data;
 }
