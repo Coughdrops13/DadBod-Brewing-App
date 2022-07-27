@@ -1,0 +1,33 @@
+.unauthorizedAccess {
+  height: 20rem;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.unauthorizedAccess p {
+  color: #1a1a1a;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.btn--flat {
+  cursor: pointer;
+  font: inherit;
+  color: #B35E2F;
+  border: none;
+  background-color: none;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+}
+
+.btn--flat:hover,
+.btn--flat:active {
+  background-color: #B35E2F;
+  color: #1a1a1a;
+}

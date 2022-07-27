@@ -6,7 +6,7 @@ const auth = async (req, res, next) => {
 
     // check if logged in using token
     if (!token) {
-      return res.status(401).json({ errorMessage: "Unauthorized" });
+      return res.status(401).json({ errorMessage: "Unauthorized NO TOKEN" });
     }
 
     // check if unique token
@@ -17,7 +17,7 @@ const auth = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("AUTHENTICATION ERROR", error);
-    res.status(401).json({ errorMessage: "Unauthorized" }).send();
+    res.status(401).json({ errorMessage: "Unauthorized HELLOOO" }).send();
   }
 };
 

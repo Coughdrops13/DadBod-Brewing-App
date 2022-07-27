@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 export async function fetchBeersData() {
   try {
     const response = await axios.get("/DadBod/beers");
@@ -7,7 +8,7 @@ export async function fetchBeersData() {
     return response.data;
 
   } catch (error) {
-    console.log("Fetching beer data failed... ", error)
+    console.log("Fetching beer data failed... ", error);
   }
 };
 
@@ -30,5 +31,6 @@ export async function fetchSingleBeer(beerId) {
 
 export async function getLoggedIn() {
   const isLoggedIn = await axios.get('http://localhost:3000/DadBod/users/loggedIn');
+  console.log("GET LOGGED IN", isLoggedIn)
   return isLoggedIn.data;
 };
