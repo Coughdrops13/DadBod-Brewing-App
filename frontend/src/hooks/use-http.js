@@ -46,7 +46,7 @@ function useHttp(requestFunction, startWithPending = false) {
         }
         dispatch({ type: "SUCCESS", responseData });
       } catch (error) {
-        console.log("ERROR TRIGGERED");
+        console.log("ERROR TRIGGERED", error);
         dispatch({
           type: "ERROR",
           errorMessage: error.message || "Something went wrong!",

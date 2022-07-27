@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-
+// ---------------------------------Beer Functions--------------------------------------------
 export async function fetchBeersData() {
   try {
     const response = await axios.get("/DadBod/beers");
@@ -35,10 +35,14 @@ export async function getLoggedIn() {
   return isLoggedIn.data;
 };
 
-// -----------------------------------Comments Functions----------------------------------------
+// -----------------------------------Comments Functions--------------------------------------
 
 export async function getComments(beer_id) {
-  const comments = await axios.get(`http://localhost:3000/DadBod/comments/${beer_id}`);
-  console.log("COMMENTS: ", comments);
-  return comments.data;
+  try {
+    const comments = await axios.get(`http://localhost:3000/DadBod/comments/${beer_id}`);
+    console.log("COMMENTS: ", comments.data);
+    return comments.data;
+  } catch (error) {
+    console.log("ERROR FROM: getComments", error)
+  }
 }

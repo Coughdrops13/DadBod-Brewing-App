@@ -1,5 +1,14 @@
-import classes from "./CommentsListItem.module.css";  
+import classes from "./CommentsListItem.module.css";
 
-const CommentsListItem = () => {};
+import Card from "../UI/Card";
+
+const CommentsListItem = (props) => {
+  const { content } = props;
+  return (
+    <Card>
+      <p>{content}</p>
+    </Card>
+  );
+};
 
 export default CommentsListItem;

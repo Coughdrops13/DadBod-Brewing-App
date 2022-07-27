@@ -50,35 +50,35 @@ const BeerDetails = (props) => {
         <Link to="/beers" className="btn">{`<< Beer List`}</Link>
       </div>
       <SingleBeer beer={loadedBeer} />
-      {isLoggedIn && (
-        <Routes>
-          <Route
-            path=""
-            exact
-            element={
-              <div className="centered">
-                <Link to="comments" className="btn">
-                  Comments
-                </Link>
-              </div>
-            }
-          />
-          <Route
-            path="comments"
-            element={
-              <Fragment>
+      <Routes>
+        <Route
+          path=""
+          exact
+          element={
+            <div className="centered">
+              <Link to="comments" className="btn">
+                Comments
+              </Link>
+            </div>
+          }
+        />
+        <Route
+          path="comments"
+          element={
+            <Fragment>
+              <CommentsList beer_id={beerId} beer_title={loadedBeer.title} />
+              {isLoggedIn && (
                 <div className="centered">
                   <Link to="newComment" className="btn">
                     Add Comment
                   </Link>
                 </div>
-                <CommentsList beer_id={beerId} />
-              </Fragment>
-            }
-          />
-          <Route path="comments/newComment" element={<CommentForm />} />
-          </Routes>
-        )}
+              )}
+            </Fragment>
+          }
+        />
+        <Route path="comments/newComment" element={<CommentForm />} />
+        </Routes>
     </Fragment>
   );
 };
