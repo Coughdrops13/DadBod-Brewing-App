@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 // routes
 app.use("/DadBod/beers", beersRoutes);
 app.use("/DadBod/users", usersRoutes);
-app.use("/DadBod/beers/:id/comments", commentsRoutes);
+app.use("/DadBod/comments", commentsRoutes);
 app.use(express.static("public"));
 
 //connect server to db

@@ -1,10 +1,19 @@
-import { Routes, Route } from 'react-router-dom';
+import axios from 'axios'
 
 import CommentsListItem from "./CommentsListItem";
-import CommentForm from "../comments/CommentForm";
+import useHttp from '../../hooks/use-http';
+import { getComments } from "../../lib/api";
 import classes from "./CommentsList.module.css";
+import LoadingSpinner from '../UI/LoadingSpinner';
+import Unauthorized from '../../pages/Unauthorized';
 
-const CommentsList = () => {
+const CommentsList = (props) => {
+  const {
+    status,
+    data: loadedComments,
+    error,
+  } = useHttp(getComments(props.beer_id), true);
+
   const commentsList = (
     <div>
       <p>List Here</p>
@@ -22,10 +31,29 @@ const CommentsList = () => {
     </div>
   );
   
-  return <div className="centered">
-    {commentsList}
-    <CommentsListItem />
-  </div>;
+  if (status === 'pending') {
+    return (
+      <div className='centered'>
+        <LoadingSpinner />
+      </div>
+    )
+  }
+
+  if (status === 'completed') {
+    return <div className="centered">
+      {commentsList}
+      <CommentsListItem />
+    </div>;
+  }
+
+  if (status === 'error') {
+    return (
+      <>
+        <p>LKSDJNGKBNJBKJNB</p>
+        <Unauthorized />
+      </>
+    )
+  }
 };
 
 export default CommentsList;

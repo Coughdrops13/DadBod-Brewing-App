@@ -34,3 +34,11 @@ export async function getLoggedIn() {
   console.log("GET LOGGED IN", isLoggedIn)
   return isLoggedIn.data;
 };
+
+// -----------------------------------Comments Functions----------------------------------------
+
+export async function getComments(beer_id) {
+  const comments = await axios.get(`http://localhost:3000/DadBod/beers/${beer_id}/comments`);
+  console.log("COMMENTS: ", comments);
+  return comments.data;
+}

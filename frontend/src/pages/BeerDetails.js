@@ -1,5 +1,6 @@
 import { Fragment, useEffect } from "react";
 import { useParams, Link, Routes, Route } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import { fetchSingleBeer } from "../lib/api";
 import useHttp from "../hooks/use-http";
@@ -10,6 +11,7 @@ import CommentForm from "../components/comments/CommentForm";
 import NotFound from "./NotFound";
 
 const BeerDetails = (props) => {
+  const isLoggedIn = useSelector(state => state.loggedIn.isLoggedIn)
   const params = useParams();
   const beerId = params.beerId;
 
@@ -48,33 +50,35 @@ const BeerDetails = (props) => {
         <Link to="/beers" className="btn">{`<< Beer List`}</Link>
       </div>
       <SingleBeer beer={loadedBeer} />
-      <Routes>
-        <Route
-          path=""
-          exact
-          element={
-            <div className="centered">
-              <Link to="comments" className="btn">
-                Comments
-              </Link>
-            </div>
-          }
-        />
-        <Route
-          path="comments"
-          element={
-            <Fragment>
+      {isLoggedIn && (
+        <Routes>
+          <Route
+            path=""
+            exact
+            element={
               <div className="centered">
-                <Link to="newComment" className="btn">
-                  Add Comment
+                <Link to="comments" className="btn">
+                  Comments
                 </Link>
               </div>
-              <CommentsList />
-            </Fragment>
-          }
-        />
-        <Route path="comments/newComment" element={<CommentForm />} />
-      </Routes>
+            }
+          />
+          <Route
+            path="comments"
+            element={
+              <Fragment>
+                <div className="centered">
+                  <Link to="newComment" className="btn">
+                    Add Comment
+                  </Link>
+                </div>
+                <CommentsList beer_id={beerId} />
+              </Fragment>
+            }
+          />
+          <Route path="comments/newComment" element={<CommentForm />} />
+          </Routes>
+        )}
     </Fragment>
   );
 };
