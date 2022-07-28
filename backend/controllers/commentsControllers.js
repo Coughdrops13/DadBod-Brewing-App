@@ -16,17 +16,13 @@ const getComments = async (req, res) => {
 }
 // CREATE a comment
 const createComment = async (req, res) => {
-  const { author_id, beer_id, content } = req.body;
+  const { beer_id, content } = req.body;
   try {
-    if (!mongoose.Types.ObjectId.isValid(author_id)) {
-      return res.status(404).json({ error: "Invalid author." });
-    }
-
     if (!mongoose.Types.ObjectId.isValid(beer_id)) {
       return res.status(404).json({ error: "Invalid beer." });
     }
 
-    const comment = await Comment.create({ author_id, beer_id, content });
+    const comment = await Comment.create({ beer_id, content });
 
     res.status(200).json(comment);
   }catch (error) {
