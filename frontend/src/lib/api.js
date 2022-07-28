@@ -63,3 +63,19 @@ export async function createComment(commentData) {
     console.log("ERROR FROM: createComment", error);
   }
 }
+
+// ----------------------------------User Functions------------------------------------------
+
+export async function getUser(email) {
+  try {
+    const response = await axios.get(`http://localhost:3000/DadBod/users`)
+
+    const users = response.data;
+
+    const user = users.filter(user => user.email === email);
+
+    return user
+  } catch (error) {
+    console.log("ERROR FINDING USER: getUser");
+  }
+}

@@ -81,6 +81,7 @@ const createUser = async (req, res) => {
     // save a new user account to the database
 
     const newUser = new User({
+      userName,
       email,
       passwordHash,
     });
@@ -90,7 +91,7 @@ const createUser = async (req, res) => {
     // create and sign jsonwebtoken
     const token = jwt.sign(
       {
-        user: savedUser._id,
+        user: savedUser,
       },
       process.env.JWT_SECRET
     );
@@ -184,7 +185,7 @@ const loginUser = async (req, res) => {
     // sign web token
     const token = jwt.sign(
       {
-        user: existingUser._id,
+        user: existingUser,
       },
       process.env.JWT_SECRET
     );
@@ -202,7 +203,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-// ------------------------------------Login a user------------------------------------------
+// ------------------------------------Logout a user------------------------------------------
 const logoutUser = (req, res) => {
   res
     .cookie("token", "", {

@@ -14,6 +14,10 @@ const userSchema = new Schema({
   passwordHash: {
     type: String,
     required: true,
+  },
+  favoriteBeers: {
+    type: Array,
+    required: false,
   }
 });
 

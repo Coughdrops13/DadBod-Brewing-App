@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import classes from "./MainHeader.module.css";
 import { loggedInActions } from "../../store/loggedIn-slice";
+import { userActions } from "../../store/user-slice";
 
 const MainHeader = (props) => {
   const dispatch = useDispatch();
@@ -11,8 +12,9 @@ const MainHeader = (props) => {
 
   const logoutHandler = async () => {
     await axios.get("http://localhost:3000/DadBod/users/logout")
-    
+
     dispatch(loggedInActions.logOut());
+    dispatch(userActions.logOutUser());
 
   };
 

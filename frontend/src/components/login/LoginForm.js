@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { loggedInActions } from "../../store/loggedIn-slice";
+import { userActions } from "../../store/user-slice";
 
 
 const LoginForm = () => {
@@ -27,18 +28,23 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const registerData = {
+      const logInData = {
         email: enteredEmail,
         password: enteredPassword,
       }
 
-      const response = await axios.post("http://localhost:3000/DadBod/users/login", registerData);
+      const response = await axios.post("http://localhost:3000/DadBod/users/login", logInData);
       console.log("RESPONSE", response);
 
       if (!response.statusText === 'OK') {
         throw new Error("Error logging in user");
       }
 
+      console.log("RESPONSE.DATA FROM LOGIN FORM SUBMISSION", response.data.existingUser);
+      // const loggedInUser = { ...response.data.existingUser }
+      // console.log("LOGGEDINUSER", loggedInUser);
+
+      // dispatch(loggedInActions.logIn());
       
     } catch (error) {
       
@@ -50,7 +56,6 @@ const LoginForm = () => {
     setEnteredEmail('');
     setEnteredPassword('');   
 
-    dispatch(loggedInActions.logIn());
     navigate('/');
 
   };
