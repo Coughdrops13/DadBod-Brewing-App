@@ -7,6 +7,7 @@ import { loggedInActions } from "../../store/loggedIn-slice";
 const RegisterUserForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [enteredUserName, setEnteredUserName] = useState('');
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredVerification, setEnteredVerification] = useState("");

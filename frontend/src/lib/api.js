@@ -50,7 +50,7 @@ export async function getComments(beer_id) {
 }
 
 export async function createComment(commentData) {
-  const { author_id, beer_id, content } = commentData;
+  const { beer_id, content } = commentData;
 
   try {
     const response = axios.post(

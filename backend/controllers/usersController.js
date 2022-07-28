@@ -34,14 +34,20 @@ const getUsers = async (req, res) => {
 // --------------------------------CREATE a new user account-------------------------------
 
 const createUser = async (req, res) => {
-  const { email, password, passwordVerify } = req.body;
+  const { userName, email, password, passwordVerify } = req.body;
 
   try {
-    // email validation
-    if (!email || !password || !passwordVerify) {
+    
+    // userName, email, password, and verification validation
+    if (!userName || !email || !password || !passwordVerify) {
       return res
         .status(400)
         .json({ errorMessage: "Please enter all required fields." });
+    }
+    if (userName.length < 4) {
+      return res
+        .status(400)
+        .json({errorMessage: "Username must be at least 4 characters long."})
     }
     if (!validateEmail(email)) {
       return res

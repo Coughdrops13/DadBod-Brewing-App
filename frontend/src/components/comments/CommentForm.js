@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import Card from "../UI/Card";
 import useHttp from "../../hooks/use-http";
 import { createComment } from "../../lib/api";
 import classes from "./CommentForm.module.css";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const Backdrop = (props) => {
   return <div className={classes.backdrop}></div>;
@@ -15,36 +16,49 @@ const ModalOverlay = (props) => {
   const params = useParams();
   const navigate = useNavigate();
   const [enteredContent, setEnteredContent] = useState("");
-  const { sendRequest, status, data, error } = useHttp(createComment)
-
+  
   const contentChangeHandler = (event) => {
     setEnteredContent(event.target.value);
   };
-
-  const submitHandler = (event) => {
+  
+  const submitHandler = async (event) => {
     event.preventDefault();
 
-    const enteredData = {
-      content: enteredContent,
-      beer_id: params.beerId,
+    try {
+      const enteredData = {
+        content: enteredContent,
+        beer_id: params.beerId, 
+      }
+
+      const response = await createComment(enteredData);
+
+      if (!response.statusText === "OK") {
+        throw new Error ("Error creating comment.")
+      }
+
+    } catch (error) {
+      console.log("ERROR CREATING COMMENT: ", error);
     }
-    sendRequest(enteredData);
-    console.log("CREATE COMMENT DATA", data);
 
-    navigate
-
-
+    navigate(`/beers/${params.beerId}/comments`);
+   
   }
+
+
   return (
     <Card className={classes.modal}>
-      <p>PlaceHolder</p>
+      <p>Tell us what you think of this beer!</p>
       <form onSubmit={submitHandler}>
+        <label for='content' />
         <input
           type="text"
           value={enteredContent}
           onChange={contentChangeHandler}
+          id='content'
         />
+        <button type="Submit" className='btn'>Submit</button>
       </form>
+
     </Card>
   );
 };
