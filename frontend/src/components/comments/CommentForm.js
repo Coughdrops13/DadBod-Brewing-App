@@ -1,18 +1,19 @@
 import { Fragment, useState } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import Card from "../UI/Card";
-import useHttp from "../../hooks/use-http";
 import { createComment } from "../../lib/api";
 import classes from "./CommentForm.module.css";
-import LoadingSpinner from "../UI/LoadingSpinner";
 
 const Backdrop = (props) => {
   return <div className={classes.backdrop}></div>;
 };
 
 const ModalOverlay = (props) => {
+  const userName = useSelector(state => state.user.userName);
+  console.log("USERNAME", userName)
   const params = useParams();
   const navigate = useNavigate();
   const [enteredContent, setEnteredContent] = useState("");
@@ -26,13 +27,17 @@ const ModalOverlay = (props) => {
 
     try {
       const enteredData = {
+        author: userName,
         content: enteredContent,
         beer_id: params.beerId, 
       }
 
+      console.log("ENTEREDDATA FROM COMMENT FORM", enteredData);
+
       const response = await createComment(enteredData);
 
-      if (!response.statusText === "OK") {
+      console.log("RESPONSE FROM CREATE COMMENT FORM", response)
+      if (!response) {
         throw new Error ("Error creating comment.")
       }
 
@@ -49,7 +54,7 @@ const ModalOverlay = (props) => {
     <Card className={classes.modal}>
       <p>Tell us what you think of this beer!</p>
       <form onSubmit={submitHandler}>
-        <label for='content' />
+        <label htmlFor='content' />
         <input
           type="text"
           value={enteredContent}

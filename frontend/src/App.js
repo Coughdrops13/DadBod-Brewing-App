@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import jwtDecoder from 'jwt-decode';
+
 
 import Home from "./pages/Home";
 import AllBeers from "./pages/AllBeers";
@@ -13,17 +13,21 @@ import LoginForm from "./components/login/LoginForm";
 import { getLoggedIn } from "./lib/api";
 import useHttp from "./hooks/use-http";
 import LoadingSpinner from "./components/UI/LoadingSpinner";
-import { loggedInActions } from "./store/loggedIn-slice";
-import { userActions } from "./store/user-slice";
 import NotFound from "./pages/NotFound";
+import { useDispatch } from 'react-redux';
+import { loggedInActions } from './store/loggedIn-slice';
+import { userActions } from './store/user-slice'
+import jwtDecoder from 'jwt-decode';
+
+
 
 // all server to send cookies to browser by default
 axios.defaults.withCredentials = true;
 
 function App() {
   const dispatch = useDispatch();
-  const { logIn } = loggedInActions;
-  const { setLoggedInUser } = userActions;
+  const { logIn, logOut } = loggedInActions;
+  const { setLoggedInUser, logOutUser } = userActions;
   const {
     sendRequest,
     status,
@@ -35,15 +39,18 @@ function App() {
   useEffect(() => {
     sendRequest();
   }, [sendRequest]);
-
-  useEffect(() => {
-    if (getLoggedInResponse && getLoggedInResponse.isLoggedIn) {
-      const token = getLoggedInResponse.token;
-      const user = jwtDecoder(token).user;
-      dispatch(logIn());
-      dispatch(setLoggedInUser(user));
-    }
-  }, [dispatch, getLoggedInResponse, logIn, setLoggedInUser]);
+  
+  if (!getLoggedInResponse) {
+    dispatch(logOut());
+    dispatch(logOutUser());
+  }
+  if (getLoggedInResponse && getLoggedInResponse.isLoggedIn) {
+    const token = getLoggedInResponse.token;
+    const user = jwtDecoder(token).user;
+    dispatch(logIn());
+    dispatch(setLoggedInUser(user));
+  } 
+  
 
   const loggedInState = useSelector((state) => state.loggedIn.isLoggedIn);
   console.log("loggedInState = ", loggedInState);

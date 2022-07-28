@@ -10,6 +10,8 @@ import { userActions } from "../../store/user-slice";
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { logIn } = loggedInActions;
+  const { setLoggedInUser } = userActions;
 
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -41,10 +43,11 @@ const LoginForm = () => {
       }
 
       console.log("RESPONSE.DATA FROM LOGIN FORM SUBMISSION", response.data.existingUser);
-      // const loggedInUser = { ...response.data.existingUser }
+      const loggedInUser = { ...response.data.existingUser }
       // console.log("LOGGEDINUSER", loggedInUser);
 
-      // dispatch(loggedInActions.logIn());
+      dispatch(logIn());
+      dispatch(setLoggedInUser(loggedInUser));
       
     } catch (error) {
       

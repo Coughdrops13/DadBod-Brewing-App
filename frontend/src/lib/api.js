@@ -50,12 +50,12 @@ export async function getComments(beer_id) {
 }
 
 export async function createComment(commentData) {
-  const { beer_id, content } = commentData;
+  const { author, beer_id, content } = commentData;
 
   try {
     const response = axios.post(
       `http://localhost:3000/DadBod/comments/${beer_id}/newComment`,
-      { beer_id, content }
+      { author, beer_id, content }
     );
 
     console.log("POSTED COMMENT: ", response);

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialBeerState = {
   inventory: [],
+  comments: [],
 };
 
 const beerSlice = createSlice({
@@ -11,6 +12,9 @@ const beerSlice = createSlice({
     setBeersList(state, action) {
       state.inventory = action.payload;
     },
+    setBeersComments(state, action) {
+      state.comments = action.payload;
+    }
     
   },
 })

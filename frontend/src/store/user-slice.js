@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// import jwtDecoder from 'jwt-decode';
-
 const initialUserState = {
   userName: '',
   email: '',

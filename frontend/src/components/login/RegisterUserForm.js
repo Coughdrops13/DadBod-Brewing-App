@@ -2,12 +2,16 @@ import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import { loggedInActions } from "../../store/loggedIn-slice";
 import { userActions } from "../../store/user-slice";
 
 const RegisterUserForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { logIn } = loggedInActions;
+  const { setLoggedInUser } = userActions;
+
   const [enteredUserName, setEnteredUserName] = useState('');
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -54,17 +58,19 @@ const RegisterUserForm = () => {
         throw new Error("Error creating new user");
       }
 
-      // dispatch(loggedInActions.logIn());
-      // dispatch(userActions.setLoggedInUser(registerData.email));
+      const registeredUser = {
+        userName: registerData.userName,
+        email: registerData.email,
+        admin: false,
+        favoriteBeers: [],
+      }
+
+      dispatch(logIn());
+      dispatch(setLoggedInUser(registeredUser));
 
     } catch (error) {
       console.log("REGISTRATION FORM ERROR", error);
     }
-
-    setEnteredUserName("");
-    setEnteredEmail("");
-    setEnteredPassword("");
-    setEnteredVerification("");
 
     navigate("/");
   };

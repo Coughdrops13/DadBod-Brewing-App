@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 import classes from "./MainHeader.module.css";
@@ -7,6 +7,7 @@ import { loggedInActions } from "../../store/loggedIn-slice";
 import { userActions } from "../../store/user-slice";
 
 const MainHeader = (props) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.loggedIn.isLoggedIn);
 
@@ -15,6 +16,8 @@ const MainHeader = (props) => {
 
     dispatch(loggedInActions.logOut());
     dispatch(userActions.logOutUser());
+
+    navigate('/');
 
   };
 

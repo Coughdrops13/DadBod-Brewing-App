@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { fetchBeersData } from "../lib/api";
 import useHttp from "../hooks/use-http";
@@ -22,10 +22,12 @@ const AllBeers = (props) => {
 
   useEffect(() => {
     sendRequest();
-    dispatch(setBeersList(loadedBeers));
-  }, [sendRequest, dispatch, setBeersList]);
+  }, [sendRequest]);
 
-  console.log("STATUS", status);
+  useEffect(() => {
+    dispatch(setBeersList(loadedBeers));
+  }, [dispatch, setBeersList, loadedBeers])
+
 
   if (status === "pending") {
     return (
